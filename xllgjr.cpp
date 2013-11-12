@@ -1,5 +1,5 @@
 // xllvalue.cpp
-#include "xllvalue.h"
+#include "xllgjr.h"
 #include "../xll8/xll/utility/timer.h"
 
 using namespace fms;
@@ -327,7 +327,7 @@ static AddInX xai_fms_model_black_value(
 	.Arg(XLL_DOUBLEX, _T("Strike"), _T("is the strike of the option."))
 	.Arg(XLL_DOUBLEX, _T("Expiration"), _T("is the time in years to option expiration."))
 	.Category(CATEGORY)
-	.FunctionHelp(_T("Values an call (Strike > 0) or put (Strike < 0) using the Fischer Black model."))
+	.FunctionHelp(_T("Values a call (Strike > 0) or put (Strike < 0) using the Fischer Black model."))
 	.Documentation(R"(
 		This can also be called with two arguments, a model and an instrument.
 		E.g., <codeInline>BLACK.VALUE(100, 0.2, 90, 0.25) = BLACK.VALUE(BLACK(100, 0.2), OPTION(90, 0.25)</codeInline>
@@ -382,14 +382,14 @@ HANDLEX xll_fms_model_gjr(double f, double s, const _FP* pk)
 	return h;
 }
 static AddInX xai_fms_model_gjr_value(
-	FunctionX(XLL_DOUBLEX, _T("?xll_fms_model_gjr_value"), _T("MODEL.BLACK.VALUE"))
+	FunctionX(XLL_DOUBLEX, _T("?xll_fms_model_gjr_value"), _T("MODEL.GJR.VALUE"))
 	.Arg(XLL_DOUBLEX, _T("Forward"), _T("is the forward value of the underlying."))
 	.Arg(XLL_DOUBLEX, _T("Volatility"), _T("is the Black-Scholes volatility of the underlying."))
 	.Arg(XLL_LPOPERX, _T("Kappa"),  _T("is an optional array of cumulant perturbations."))
 	.Arg(XLL_DOUBLEX, _T("Strike"), _T("is the strike of the option."))
 	.Arg(XLL_DOUBLEX, _T("Expiration"), _T("is the time in years to option expiration."))
 	.Category(CATEGORY)
-	.FunctionHelp(_T("Values an call (Strike > 0) or put (Strike < 0) using the Fischer Black model."))
+	.FunctionHelp(_T("Values a call (Strike > 0) or put (Strike < 0) using the Fischer Black model."))
 	.Documentation(R"(
 		This can also be called with two arguments, a model and an instrument.
 		E.g., <codeInline>BLACK.VALUE(100, 0.2, 90, 0.25) = BLACK.VALUE(BLACK(100, 0.2), OPTION(90, 0.25)</codeInline>
@@ -405,10 +405,17 @@ double WINAPI xll_fms_model_gjr_value(double f, double s, LPOPERX pkappa, double
 			handle<model::gjr<>> m(f);
 			handle<instrument::option<>> o(s);
 
-			v = 0;//value<>(*m, *o);
+			v = value<>(*m, *o);
 		}
 		else {
-			v = 0; //!!!value<>(model::black<>(f,s), instrument::option<>(k,t));
+			size_t nk = pkappa->size();
+			std::vector<double> kappa(nk);
+			for (xword i = 0; i < nk; ++i) {
+				ensure ((*pkappa)[i].xltype == xltypeNum);
+				kappa[i] = (*pkappa)[i].val.num;
+			}
+
+			v = value<>(model::gjr<>(f,s,nk,&kappa[0]), instrument::option<>(k,t));
 		}
 	}
 	catch (const std::exception& ex) {
@@ -422,7 +429,7 @@ double WINAPI xll_fms_model_gjr_value(double f, double s, LPOPERX pkappa, double
 
 #include <random>
 #include "../xll8/xll/utility/timer.h"
-#include "../fmsvalue/combinatorial.h"
+#include "../fmsgjr/combinatorial.h"
 
 using namespace fms::combinatorial;
 

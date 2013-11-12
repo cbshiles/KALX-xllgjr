@@ -2,7 +2,7 @@
 // Uncomment the following line to use features for Excel2007 and above.
 //#define EXCEL12
 #include "../xll8/xll/xll.h"
-#include "../fmsvalue/fmsvalue.h"
+#include "../fmsgjr/fmsgjr.h"
 
 #ifndef CATEGORY
 #define CATEGORY _T("Value")

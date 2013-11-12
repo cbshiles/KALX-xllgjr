@@ -22,6 +22,7 @@
     <ProjectGuid>{D28D0647-F7BD-42FD-ADFF-F376813CF650}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>xllvalue</RootNamespace>
+    <ProjectName>xllgjr</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -153,15 +154,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="xllvalue.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="xllvalue.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\xll8\xll.vcxproj">
       <Project>{8b15c18c-4c25-476c-abbd-88be05c35a3e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="xllgjr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="xllgjr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
