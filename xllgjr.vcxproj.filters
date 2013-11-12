@@ -17,5 +17,8 @@
     <ClCompile Include="xllgjr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\xllbms\xllblack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
