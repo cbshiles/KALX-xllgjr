@@ -39,8 +39,7 @@ double WINAPI xll_sleep(double s)
 
 #pragma region distribution
 
-static AddInX xai_fms_distribution_standard_normal(
-	FunctionX(XLL_FPX, _T("?xll_fms_distribution_standard_normal"), _T("CDF_"))
+static AddInX xai_fms_distribution_standard_normal(	FunctionX(XLL_FPX, _T("?xll_fms_distribution_standard_normal"), _T("DISTRIBUTION.G"))
 	.Arg(XLL_DOUBLEX, _T("x"), _T("is a number."))
 	.Arg(XLL_FPX, _T("_kappa"), _T("is an optional array of perturbations to the cumulants."))
 	.Arg(XLL_LONGX, _T("_n"), _T("is the optional n-th derivative."))
@@ -58,7 +57,7 @@ xfp* WINAPI xll_fms_distribution_standard_normal(double x, xfp* kappa, LONG n, L
 		G = 0;
 		G[0] = std::numeric_limits<double>::quiet_NaN();
 
-		G[0] = distribution::standard_normal<>::F_(x, n, size(*kappa), kappa->array, N, G.array() + 1);
+		G[0] = distribution::standard_normal<>::G(x, n, size(*kappa), kappa->array, N, G.array() + 1);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
