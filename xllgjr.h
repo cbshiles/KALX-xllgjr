@@ -5,7 +5,7 @@
 #include "../fmsgjr/fmsgjr.h"
 
 #ifndef CATEGORY
-#define CATEGORY _T("Value")
+#define CATEGORY _T("GJR")
 #endif
 
 typedef xll::traits<XLOPERX>::xcstr xcstr; // pointer to const string

@@ -1,51 +1,21 @@
 // xllvalue.cpp
 #include "xllgjr.h"
-#include "../xll8/xll/utility/timer.h"
 
 using namespace fms;
 using namespace xll;
 
-//!!! not working
-static AddInX xai_timer( 
-	FunctionX(XLL_DOUBLEX, _T("?xll_timer"), _T("TIMER"))
-	.Arg(XLL_LPXLOPERX, _T("Ref"), _T("is a cell reference."))
-	.Uncalced()
-	.Category(CATEGORY)
-	.FunctionHelp(_T("Time a call to Ref."))
-);
-double WINAPI xll_timer(LPXLOPER px)
-{
-#pragma XLLEXPORT
-	utility::timer t;
-	t.start();
-	OPERX x = XLL_XLF(Evaluate, XLL_XL_(Coerce, *px));
-	t.stop();
-	
-	return t.elapsed();
-}
-static AddInX xai_sleep(
-	FunctionX(XLL_DOUBLEX, _T("?xll_sleep"), _T("SLEEP"))
-	.Arg(XLL_DOUBLEX, _T("Seconds"), _T("is the time in seconds to sleep."))
-	.Category(CATEGORY)
-	.FunctionHelp(_T("Test routine for TIMER"))
-	);
-double WINAPI xll_sleep(double s)
-{
-#pragma XLLEXPORT
-	Sleep(1000*s);
-
-	return s;
-}
-
 #pragma region distribution
 
-static AddInX xai_fms_distribution_standard_normal(	FunctionX(XLL_FPX, _T("?xll_fms_distribution_standard_normal"), _T("DISTRIBUTION.G"))
+static AddInX xai_fms_distribution_standard_normal(	
+	FunctionX(XLL_FPX, _T("?xll_fms_distribution_standard_normal"), _T("DISTRIBUTION.G"))
 	.Arg(XLL_DOUBLEX, _T("x"), _T("is a number."))
 	.Arg(XLL_FPX, _T("_kappa"), _T("is an optional array of perturbations to the cumulants."))
 	.Arg(XLL_LONGX, _T("_n"), _T("is the optional n-th derivative."))
 	.Arg(XLL_LONGX, _T("_N"), _T("is the optional number of series terms to return."))
 	.Category(CATEGORY)
 	.FunctionHelp(_T("Returns derivatives of a normal distribution perturbed by cumulants."))
+	.Documentation(
+	)
 );
 xfp* WINAPI xll_fms_distribution_standard_normal(double x, xfp* kappa, LONG n, LONG N)
 {
@@ -67,7 +37,7 @@ xfp* WINAPI xll_fms_distribution_standard_normal(double x, xfp* kappa, LONG n, L
 }
 
 static AddInX xai_fms_distribution_esscher(
-	FunctionX(XLL_FPX, _T("?xll_fms_distribution_esscher"), _T("ESSCHER"))
+	FunctionX(XLL_FPX, _T("?xll_fms_distribution_esscher"), _T("DISTRIBUTION.ESSCHER"))
 	.Arg(XLL_FPX, _T("cumulants"), _T("are the cumulants."))
 	.Arg(XLL_DOUBLEX, _T("gamma"), _T("is the Esscher parameter."))
 	.Category(CATEGORY)
@@ -96,6 +66,7 @@ xfp* WINAPI xll_fms_distribution_esscher(xfp* kappa, double gamma)
 	return kappa_.get();
 }
 
+#pragma endregion distribution
 
 static AddInX xai_fms_polynomial_bell(
 	FunctionX(XLL_DOUBLEX, _T("?xll_fms_polynomial_bell"), _T("POLYNOMIAL.BELL"))
@@ -246,53 +217,6 @@ HANDLEX xll_fms_instrument_put(double k, double t)
 
 	return h;
 }
-/*
-static AddInX xai_fms_instrument_option_strike(
-	FunctionX(XLL_DOUBLEX, _T("?xll_fms_instrument_option_strike"), _T("INSTRUMENT.OPTION.STRIKE"))
-	.Arg(XLL_HANDLEX, _T("Option"), _T("is a handle to a call or put option."))
-	.Category(CATEGORY)
-	.FunctionHelp(_T("Return a handle to a call (Strike > 0) or put (Strike < 0) option."))
-);
-double xll_fms_instrument_option_strike(HANDLEX h)
-{
-#pragma XLLEXPORT
-	double k(std::numeric_limits<double>::quiet_NaN());
-
-	try {
-		handle<instrument::option<>> h_(h);
-
-		k = h_->strike;
-	}
-	catch (const std::exception& ex) {
-		XLL_ERROR(ex.what());
-	}
-
-	return k;
-}
-
-static AddInX xai_fms_base_volatility(
-	FunctionX(XLL_DOUBLEX, _T("?xll_fms_base_volatility"), _T("MODEL.VOLATILITY"))
-	.Arg(XLL_HANDLEX, _T("Model"), _T("is a handle to a model."))
-	.Category(CATEGORY)
-	.FunctionHelp(_T("Return the volatility value of a model."))
-);
-double WINAPI xll_fms_base_volatility(HANDLEX h)
-{
-#pragma XLLEXPORT
-	double s(std::numeric_limits<double>::quiet_NaN());
-
-	try {
-		handle<model::base<>> h_(h);
-
-		s = h_->volatility;
-	}
-	catch (const std::exception& ex) {
-		XLL_ERROR(ex.what());
-	}
-
-	return s;
-}
-*/
 
 static AddInX xai_fms_model_black(
 	FunctionX(XLL_HANDLEX, _T("?xll_fms_model_black"), _T("MODEL.BLACK"))
@@ -388,11 +312,11 @@ static AddInX xai_fms_model_gjr_value(
 	.Arg(XLL_DOUBLEX, _T("Strike"), _T("is the strike of the option."))
 	.Arg(XLL_DOUBLEX, _T("Expiration"), _T("is the time in years to option expiration."))
 	.Category(CATEGORY)
-	.FunctionHelp(_T("Values a call (Strike > 0) or put (Strike < 0) using the Fischer Black model."))
-	.Documentation(R"(
+	.FunctionHelp(_T("Values a call (Strike > 0) or put (Strike < 0) using the generalized Jarrow-Rudd model."))
+	.Documentation(R"xyz(
 		This can also be called with two arguments, a model and an instrument.
-		E.g., <codeInline>BLACK.VALUE(100, 0.2, 90, 0.25) = BLACK.VALUE(BLACK(100, 0.2), OPTION(90, 0.25)</codeInline>
-	)")
+		E.g., <codeInline>BLACK.VALUE(100, 0.2, 90, 0.25) = BLACK.VALUE(BLACK(100, 0.2), OPTION(90, 0.25))</codeInline>
+	)xyz")
 );
 double WINAPI xll_fms_model_gjr_value(double f, double s, LPOPERX pkappa, double k, double t)
 {
@@ -409,9 +333,9 @@ double WINAPI xll_fms_model_gjr_value(double f, double s, LPOPERX pkappa, double
 		else {
 			size_t nk = pkappa->size();
 			std::vector<double> kappa(nk);
-			for (xword i = 0; i < nk; ++i) {
-				ensure ((*pkappa)[i].xltype == xltypeNum);
-				kappa[i] = (*pkappa)[i].val.num;
+			for (size_t i = 0; i < nk; ++i) {
+				ensure (pkappa->val.array.lparray[i].xltype == xltypeNum);
+				kappa[i] = pkappa->val.array.lparray[i].val.num;
 			}
 
 			v = value<>(model::gjr<>(f,s,nk,&kappa[0]), instrument::option<>(k,t));
@@ -423,6 +347,40 @@ double WINAPI xll_fms_model_gjr_value(double f, double s, LPOPERX pkappa, double
 	
 	return v;
 }
+
+static AddInX xai_black_implied_volatility(
+	FunctionX(XLL_DOUBLEX, _T("?xll_black_implied_volatility"), _T("BLACK.IMPLIED.VOLATILITY"))
+	.Arg(XLL_DOUBLEX, _T("Forward"), "is the forward.", 100)
+	.Arg(XLL_DOUBLEX, _T("Value"), "is the value of a call option.", 4)
+	.Arg(XLL_DOUBLEX, _T("Strike"), "is the strike.", 100)
+	.Arg(XLL_DOUBLEX, _T("Expiration"), "is the time in years to expiration.", .25)
+	.Category(CATEGORY)
+	.FunctionHelp(_T("Returns the implied volatility of a Black call or put option"))
+	.Documentation(
+		_T("The implied volatilty is that which returns <codeInline>value</codeInline> ")
+		_T("from <codeInline>BLACK.VALUE</codeInline>. ")
+/*		,
+		xml::xlink(_T("BLACK.VALUE"))
+*/	)
+);
+double WINAPI
+xll_black_implied_volatility(double f, double v, double k, double t)
+{
+#pragma XLLEXPORT
+	double value;
+
+	try {
+		value = fms::implied_volatility<double>(f, v, k, t);
+	}
+	catch (const std::exception& ex) {
+		XLL_ERROR(ex.what());
+
+		value = std::numeric_limits<double>::quiet_NaN();
+	}
+
+	return value;
+}
+
 
 #ifdef _DEBUG
 
@@ -453,9 +411,10 @@ void test_fms_combinatorial()
 	ensure (120 == factorial(5));
 	double elapsed;
 
-	auto u = [](void) { return 50; };
-	elapsed = timef<size_t>([](size_t k) { return choose(100,k); }, u);
-	elapsed = timef<size_t>([](size_t k) { return choose(100,k); }, u);
+	size_t n = 10;
+	auto u = [n](void) { return n/2; };
+	elapsed = timef<size_t>([](size_t k) { return choose(10,k); }, u);
+	elapsed = timef<size_t>([](size_t k) { return choose(10,k); }, u);
 
 	for (int i = 0; i < 100; ++i) {
 		size_t n = std::uniform_int_distribution<size_t>(0, 10)(dre);
