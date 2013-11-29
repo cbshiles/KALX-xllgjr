@@ -161,14 +161,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="xllcurry.h" />
+    <ClInclude Include="xllfunction.h" />
     <ClInclude Include="xllgjr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xllbms\xllblack.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="xllgjr.cpp" />
+    <ClCompile Include="xllcurry.cpp" />
+    <ClCompile Include="xllfunction.cpp" />
+    <ClCompile Include="xllgjr.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="xllroot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xll8\xll.vcxproj">

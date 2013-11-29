@@ -12,12 +12,27 @@
     <ClInclude Include="xllgjr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="xllcurry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xllfunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xllgjr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\xllbms\xllblack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllroot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllcurry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllfunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

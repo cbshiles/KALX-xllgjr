@@ -370,7 +370,7 @@ xll_black_implied_volatility(double f, double v, double k, double t)
 	double value;
 
 	try {
-		value = fms::implied_volatility<double>(f, v, k, t);
+		value = fms::black::implied_volatility<double>(f, v, k, t);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
