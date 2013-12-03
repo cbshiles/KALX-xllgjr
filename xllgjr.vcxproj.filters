@@ -7,13 +7,16 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{32628831-e1cd-48f6-a777-7504c0f926de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="xllfunction">
+      <UniqueIdentifier>{19b6fcd3-c446-4807-a922-0afa0fd74b0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xllgjr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xllfunction.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\xllfunction\xllfunction.h">
+      <Filter>xllfunction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="xllroot.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xllfunction\xllfunction.cpp">
+      <Filter>xllfunction</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

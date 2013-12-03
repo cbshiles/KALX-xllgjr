@@ -1,5 +1,6 @@
 // xllroot.cpp - find roots of functions
 #include "../xll8/xll/xll.h"
+#include "../xllfunction/xllfunction.h"
 #include "../fmsgjr/root1d.h"
 
 using namespace xll;
@@ -12,18 +13,17 @@ static AddInX xai_root1d_state(
 	FunctionX(XLL_HANDLEX, _T("?xll_root1d_state"), _T("XLL.ROOT1D"))
 	.Arg(XLL_DOUBLEX, _T("Abs"), _T("is the absolute error."))
 	.Arg(XLL_DOUBLEX, _T("Rel"), _T("is the relative error."))
-	.Arg(XLL_USHORT, _T("Iter"), _T("is the maximum number of iterations."))
 	.Uncalced()
 	.Category(_T("XLL"))
 	.FunctionHelp(_T("Return a handle to a one dimensional root finder state."))
 );
-HANDLEX WINAPI xll_root1d_state(double abs, double rel, USHORT iter)
+HANDLEX WINAPI xll_root1d_state(double abs, double rel)
 {
 #pragma XLLEXPORT
 	handlex h;
 
 	try {
-		handle<root1d::state<>> h_(new root1d::state<>(abs, rel, iter));
+		handle<root1d::state<>> h_(new root1d::state<>(root1d::interval(abs, rel)));
 
 		h = h_.get();
 	}
@@ -81,13 +81,13 @@ xfp* WINAPI xll_root1d_state_y(HANDLEX h)
 	return y.get();
 }
 
-static AddInX xai_root1d_state_test_interval(
-	FunctionX(XLL_BOOLX, _T("?xll_root1d_state_test_interval"), _T("XLL.ROOT1D.TEST.INTERVAL"))
+static AddInX xai_root1d_state_solved(
+	FunctionX(XLL_BOOLX, _T("?xll_root1d_state_solved"), _T("XLL.ROOT1D.SOLVED"))
 	.Arg(XLL_HANDLEX, _T("Handle"), _T("is a handle returned by XLL.ROOT1D"))
 	.Category(_T("XLL"))
 	.FunctionHelp(_T("Test if root is in tolerance interval."))
 );
-BOOL WINAPI xll_root1d_state_test_interval(HANDLEX h)
+BOOL WINAPI xll_root1d_state_solved(HANDLEX h)
 {
 #pragma XLLEXPORT
 	BOOL b(false);
@@ -95,7 +95,7 @@ BOOL WINAPI xll_root1d_state_test_interval(HANDLEX h)
 	try {
 		handle<root1d::state<>> h_(h);
 
-		b = h_->test_inverval();
+		b = h_->solved(*h_);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
@@ -104,29 +104,26 @@ BOOL WINAPI xll_root1d_state_test_interval(HANDLEX h)
 	return b;
 }
 
-	inline std::function<double(double)> wrap(const std::function<LOPERX(const LPOPERX*)>& f)
-	{
-		return [f](double x) { OPERX x_(x); LPOPERX px(&x_); LOPERX y = f(&px); return y.val.num; };
-	}
-
 static AddInX xai_root1d_state_bracket(
 	FunctionX(XLL_DOUBLEX, _T("?xll_root1d_state_bracket"), _T("XLL.ROOT1D.BRACKET"))
 	.Arg(XLL_HANDLEX, _T("state"), _T("is a handle returned by XLL.ROOT1D"))
 	.Arg(XLL_HANDLEX, _T("f"), _T("is a handle to a function."))
-	.Arg(XLL_DOUBLEX, _T("x"), _T("is the initial value to use."))
+	.Arg(XLL_DOUBLEX, _T("x0"), _T("is the initial value to use."))
+	.Arg(XLL_DOUBLEX, _T("x1"), _T("is the initial value to use."))
 	.Uncalced()
 	.Category(_T("XLL"))
 	.FunctionHelp(_T("Bracket the root of a monotonic function with argument _1."))
 );
-HANDLEX WINAPI xll_root1d_state_bracket(HANDLEX h, HANDLEX f, double x0)
+HANDLEX WINAPI xll_root1d_state_bracket(HANDLEX h, HANDLEX f, double x0, double x1)
 {
 #pragma XLLEXPORT
 	try {
 		handle<root1d::state<>> h_(h);
-		handle<std::function<LOPERX(const LPOPERX*)>> f_(f);
+		handle<function> f_(f);
 
-		auto F = wrap(*f_);
-		h_->bracket(F, x0);
+		auto F = [f_](double x) { return (*f_)(OPERX(x)).val.num; };
+
+		h_->bracket(F, x0, x1);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
