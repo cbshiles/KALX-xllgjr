@@ -1,26 +1,12 @@
 // xllroot.cpp - find roots of functions
 #include "../xll8/xll/xll.h"
 #include "../fmsgjr/root1d.h"
-#include "xllcurry.h"
 
 using namespace xll;
 using namespace fms;
 
 typedef traits<XLOPERX>::xfp xfp;
 typedef traits<XLOPERX>::xword xword;
-
-inline std::function<double(double)> make_function(Curry& c)
-{
-	return [&c](double x) {
-		OPERX x_(x);
-		LPOPERX px(&x_);
-
-		OPERX y = c(&px);
-		ensure (y.xltype == xltypeNum);
-
-		return y.val.num;
-	};
-}
 
 static AddInX xai_root1d_state(
 	FunctionX(XLL_HANDLEX, _T("?xll_root1d_state"), _T("XLL.ROOT1D"))
@@ -118,6 +104,11 @@ BOOL WINAPI xll_root1d_state_test_interval(HANDLEX h)
 	return b;
 }
 
+	inline std::function<double(double)> wrap(const std::function<LOPERX(const LPOPERX*)>& f)
+	{
+		return [f](double x) { OPERX x_(x); LPOPERX px(&x_); LOPERX y = f(&px); return y.val.num; };
+	}
+
 static AddInX xai_root1d_state_bracket(
 	FunctionX(XLL_DOUBLEX, _T("?xll_root1d_state_bracket"), _T("XLL.ROOT1D.BRACKET"))
 	.Arg(XLL_HANDLEX, _T("state"), _T("is a handle returned by XLL.ROOT1D"))
@@ -132,9 +123,10 @@ HANDLEX WINAPI xll_root1d_state_bracket(HANDLEX h, HANDLEX f, double x0)
 #pragma XLLEXPORT
 	try {
 		handle<root1d::state<>> h_(h);
-		handle<Curry> f_(f);
+		handle<std::function<LOPERX(const LPOPERX*)>> f_(f);
 
-		h_->bracket(make_function(*f_), x0);
+		auto F = wrap(*f_);
+		h_->bracket(F, x0);
 	}
 	catch (const std::exception& ex) {
 		XLL_ERROR(ex.what());
