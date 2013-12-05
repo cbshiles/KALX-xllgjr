@@ -26,9 +26,6 @@
     <ClCompile Include="..\xllbms\xllblack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xllroot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\xllfunction\xllfunction.cpp">
       <Filter>xllfunction</Filter>
     </ClCompile>

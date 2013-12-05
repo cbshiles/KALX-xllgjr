@@ -173,7 +173,6 @@
     <ClCompile Include="xllgjr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="xllroot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xll8\xll.vcxproj">
