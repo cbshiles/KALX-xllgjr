@@ -29,5 +29,15 @@
     <ClCompile Include="..\xllfunction\xllfunction.cpp">
       <Filter>xllfunction</Filter>
     </ClCompile>
+    <ClCompile Include="xlldistribution.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllpolynomial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllinstrument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllmodel.cpp" />
   </ItemGroup>
 </Project>
