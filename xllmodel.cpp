@@ -127,36 +127,3 @@ double WINAPI xll_fms_model_gjr_value(double f, double s, const xfp* pkappa, dou
 	return v;
 }
 
-static AddInX xai_black_implied_volatility(
-	FunctionX(XLL_DOUBLEX, _T("?xll_black_implied_volatility"), _T("BLACK.IMPLIED.VOLATILITY"))
-	.Arg(XLL_DOUBLEX, _T("Forward"), "is the forward.", 100)
-	.Arg(XLL_DOUBLEX, _T("Value"), "is the value of a call option.", 4)
-	.Arg(XLL_DOUBLEX, _T("Strike"), "is the strike.", 100)
-	.Arg(XLL_DOUBLEX, _T("Expiration"), "is the time in years to expiration.", .25)
-	.Category(CATEGORY)
-	.FunctionHelp(_T("Returns the implied volatility of a Black call or put option"))
-	.Documentation(
-		_T("The implied volatilty is that which returns <codeInline>value</codeInline> ")
-		_T("from <codeInline>BLACK.VALUE</codeInline>. ")
-/*		,
-		xml::xlink(_T("BLACK.VALUE"))
-*/	)
-);
-double WINAPI
-xll_black_implied_volatility(double f, double v, double k, double t)
-{
-#pragma XLLEXPORT
-	double value;
-
-	try {
-		value = fms::black::implied_volatility<double>(f, v, k, t);
-	}
-	catch (const std::exception& ex) {
-		XLL_ERROR(ex.what());
-
-		value = std::numeric_limits<double>::quiet_NaN();
-	}
-
-	return value;
-}
-

@@ -162,14 +162,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\xllfunction\xllfunction.h" />
-    <ClInclude Include="xllgjr.h" />
+    <ClInclude Include="black.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xllbms\xllblack.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\xllfunction\xllfunction.cpp" />
+    <ClCompile Include="xllcumulant.cpp" />
     <ClCompile Include="xlldistribution.cpp" />
     <ClCompile Include="xllgjr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

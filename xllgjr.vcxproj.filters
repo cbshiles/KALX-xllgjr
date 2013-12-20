@@ -12,11 +12,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="xllgjr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\xllfunction\xllfunction.h">
       <Filter>xllfunction</Filter>
+    </ClInclude>
+    <ClInclude Include="black.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +38,11 @@
     <ClCompile Include="xllinstrument.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xllmodel.cpp" />
+    <ClCompile Include="xllcumulant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
