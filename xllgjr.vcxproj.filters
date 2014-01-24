@@ -44,5 +44,11 @@
     <ClCompile Include="xllmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\xllfunction\xllbind.cpp">
+      <Filter>xllfunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\xllfunction\xllcall.cpp">
+      <Filter>xllfunction</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
