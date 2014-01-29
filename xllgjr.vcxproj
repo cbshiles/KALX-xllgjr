@@ -162,7 +162,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\xllfunction\xllfunction.h" />
-    <ClInclude Include="black.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xllbms\xllblack.cpp">
