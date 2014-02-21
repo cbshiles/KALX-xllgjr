@@ -164,13 +164,11 @@
     <ClInclude Include="..\xllfunction\xllfunction.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\xllbms\xllblack.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\xllfunction\xllbind.cpp" />
     <ClCompile Include="..\xllfunction\xllcall.cpp" />
     <ClCompile Include="..\xllfunction\xllfunction.cpp" />
+    <ClCompile Include="xllblack.cpp" />
+    <ClCompile Include="xllblackiv.cpp" />
     <ClCompile Include="xllcumulant.cpp" />
     <ClCompile Include="xlldistribution.cpp" />
     <ClCompile Include="xllgjr.cpp">
@@ -179,6 +177,7 @@
     <ClCompile Include="xllinstrument.cpp" />
     <ClCompile Include="xllmodel.cpp" />
     <ClCompile Include="xllpolynomial.cpp" />
+    <ClCompile Include="xllsvi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xll8\xll.vcxproj">

@@ -20,9 +20,6 @@
     <ClCompile Include="xllgjr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\xllbms\xllblack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\xllfunction\xllfunction.cpp">
       <Filter>xllfunction</Filter>
     </ClCompile>
@@ -46,6 +43,15 @@
     </ClCompile>
     <ClCompile Include="..\xllfunction\xllcall.cpp">
       <Filter>xllfunction</Filter>
+    </ClCompile>
+    <ClCompile Include="xllsvi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllblack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllblackiv.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -117,6 +117,8 @@ void test_fms_distribution()
 
 int xll_test_fmsvalue()
 {
+	const char* fs;
+	fs = __FUNCSIG__;
 	DWORD dw;
 	try {
 		dw = xll_alert_level;
