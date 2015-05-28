@@ -152,6 +152,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;XLLVALUE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\xll8</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,14 +162,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\xllfunction\xllfunction.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\xllfunction\xllbind.cpp" />
-    <ClCompile Include="..\xllfunction\xllcall.cpp" />
-    <ClCompile Include="..\xllfunction\xllfunction.cpp" />
     <ClCompile Include="xllblack.cpp" />
-    <ClCompile Include="xllblackiv.cpp" />
+    <ClCompile Include="xllblackiv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="xllcumulant.cpp" />
     <ClCompile Include="xlldistribution.cpp" />
     <ClCompile Include="xllgjr.cpp">
