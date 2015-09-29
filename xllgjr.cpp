@@ -65,7 +65,7 @@ void test_fms_combinatorial()
 	elapsed = timef<size_t>([](size_t k) { return choose(10,k); }, u);
 
 	for (int i = 0; i < 100; ++i) {
-		size_t n = std::uniform_int_distribution<size_t>(0, 10)(dre);
+		n = std::uniform_int_distribution<size_t>(0, 10)(dre);
 		size_t k = std::uniform_int_distribution<size_t>(0, n)(dre);
 
 		ensure (choose(n,k) == factorial(n)/(factorial(k)*factorial(n-k)));
@@ -96,11 +96,11 @@ void test_fms_polynomial()
 	}
 
 	for (size_t i = 0; i < 10; ++i) {
-		double x = u();
-		ensure (Hermite<double>(0, x) == 1);
-		ensure (Hermite<double>(1, x) == x);
-		ensure (Hermite<double>(2, x) == x*x - 1);
-		ensure (fabs(Hermite<double>(3, x) - (x*x*x - 3*x)) < 1e-11);
+		double x_ = u();
+		ensure (Hermite<double>(0, x_) == 1);
+		ensure (Hermite<double>(1, x_) == x_);
+		ensure (Hermite<double>(2, x_) == x_*x_ - 1);
+		ensure (fabs(Hermite<double>(3, x_) - (x_*x_*x_ - 3*x_)) < 1e-11);
 	}
 }
 

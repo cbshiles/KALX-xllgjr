@@ -7,21 +7,10 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{32628831-e1cd-48f6-a777-7504c0f926de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="xllfunction">
-      <UniqueIdentifier>{19b6fcd3-c446-4807-a922-0afa0fd74b0c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\xllfunction\xllfunction.h">
-      <Filter>xllfunction</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xllgjr.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\xllfunction\xllfunction.cpp">
-      <Filter>xllfunction</Filter>
     </ClCompile>
     <ClCompile Include="xlldistribution.cpp">
       <Filter>Source Files</Filter>
@@ -37,12 +26,6 @@
     </ClCompile>
     <ClCompile Include="xllmodel.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\xllfunction\xllbind.cpp">
-      <Filter>xllfunction</Filter>
-    </ClCompile>
-    <ClCompile Include="..\xllfunction\xllcall.cpp">
-      <Filter>xllfunction</Filter>
     </ClCompile>
     <ClCompile Include="xllsvi.cpp">
       <Filter>Source Files</Filter>
