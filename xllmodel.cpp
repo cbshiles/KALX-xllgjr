@@ -92,11 +92,11 @@ HANDLEX xll_fms_model_gjr(double f, double s, const _FP* pk)
 }
 static AddInX xai_fms_model_gjr_value(
 	FunctionX(XLL_DOUBLEX, _T("?xll_fms_model_gjr_value"), _T("MODEL.GJR.VALUE"))
-	.Arg(XLL_DOUBLEX, _T("Forward"), _T("is the forward value of the underlying."))
-	.Arg(XLL_DOUBLEX, _T("Volatility"), _T("is the Black-Scholes volatility of the underlying."))
-	.Arg(XLL_FPX, _T("Kappa"),  _T("is optional array of cumulant perturbations."))
-	.Arg(XLL_DOUBLEX, _T("Strike"), _T("is the strike of the option."))
-	.Arg(XLL_DOUBLEX, _T("Expiration"), _T("is the time in years to option expiration."))
+	.Arg(XLL_DOUBLEX, _T("Forward"), _T("is the forward value of the underlying."), 100)
+	.Arg(XLL_DOUBLEX, _T("Volatility"), _T("is the Black-Scholes volatility of the underlying."), 0.2)
+	.Arg(XLL_FPX, _T("Kappa"),  _T("is optional array of cumulant perturbations."), _T("{0,0,0,0}"))
+	.Arg(XLL_DOUBLEX, _T("Strike"), _T("is the strike of the option."), 100)
+	.Arg(XLL_DOUBLEX, _T("Expiration"), _T("is the time in years to option expiration."), 0.25)
 	.Category(CATEGORY)
 	.FunctionHelp(_T("Values a call (Strike > 0) or put (Strike < 0) using the generalized Jarrow-Rudd model."))
 	.Documentation(R"xyz(

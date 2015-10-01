@@ -11,7 +11,7 @@ static AddInX xai_fms_distribution_standard_normal(
 	.Arg(XLL_DOUBLEX, _T("x"), _T("is a number."))
 	.Arg(XLL_FPX, _T("_kappa"), _T("is an optional array of perturbations to the cumulants."))
 	.Arg(XLL_LONGX, _T("_n"), _T("is the optional n-th derivative."))
-	.Arg(XLL_LONGX, _T("_N"), _T("is the optional number of series terms to return."))
+	.Arg(XLL_LONGX, _T("_M"), _T("is the optional number of series terms to return."))
 	.Category(CATEGORY)
 	.FunctionHelp(_T("Returns derivatives of a normal distribution perturbed by cumulants."))
 	.Documentation(
