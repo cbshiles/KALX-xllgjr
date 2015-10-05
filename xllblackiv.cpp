@@ -61,6 +61,7 @@ static AddInX xai_black_implied_volatility(
 		xml::xlink(_T("BLACK.VALUE"))
 */	)
 );
+/*
 double WINAPI
 xll_black_implied_volatility(double f, double p, double k, double t)
 {
@@ -76,4 +77,4 @@ xll_black_implied_volatility(double f, double p, double k, double t)
 
 	return vol;
 }
-
+*/
